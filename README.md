@@ -49,6 +49,10 @@ The invoice should contain the following fields:
 * **Unit Tests**: Core invoice logic should be unit tested. Testing the returned values from endpoints is not required.
 * **Documentation**: Candidates are encouraged to document their decisions and reasoning in comments or a README file, explaining why specific implementations or structures were chosen.
 
+## Architecture Decision Records (ADRs)
+See `docs/adr/` for decisions and trade-offs.
+
+
 ## Setup Instructions:
 
 * Start the project by running `./start.sh`.
