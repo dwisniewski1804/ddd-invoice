@@ -21,3 +21,4 @@ yarn-error.log
 /.vscode
 /.zed
 /.cursor
+test-e2e.sh
