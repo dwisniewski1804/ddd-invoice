@@ -49,7 +49,54 @@ The invoice should contain the following fields:
 * **Unit Tests**: Core invoice logic should be unit tested. Testing the returned values from endpoints is not required.
 * **Documentation**: Candidates are encouraged to document their decisions and reasoning in comments or a README file, explaining why specific implementations or structures were chosen.
 
+## Architecture Decision Records (ADRs)
+See `docs/adr/` for decisions and trade-offs.
+
+
 ## Setup Instructions:
 
 * Start the project by running `./start.sh`.
 * To access the container environment, use: `docker compose exec app bash`.
+
+## Testing:
+
+### Unit Tests:
+```bash
+# Run all tests (Unit + Feature)
+docker compose exec app php artisan test
+
+# Run only Unit tests
+docker compose exec app php artisan test --testsuite=Unit
+
+# Run specific unit test file
+docker compose exec app php artisan test tests/Unit/Invoices/Domain/Entities/InvoiceTest.php
+
+# Run specific test method
+docker compose exec app php artisan test --filter testMethodName
+
+# Run tests with coverage (requires Xdebug)
+docker compose exec app php artisan test --coverage
+```
+
+### Feature/E2E Tests:
+```bash
+# Run all tests (Unit + Feature)
+docker compose exec app php artisan test
+
+# Run only Feature tests
+docker compose exec app php artisan test --testsuite=Feature
+
+# Run specific E2E test
+docker compose exec app php artisan test tests/Feature/Invoices/InvoiceLifecycleE2ETest.php
+```
+
+The E2E tests (`tests/Feature/Invoices/InvoiceLifecycleE2ETest.php`) verify the complete invoice lifecycle:
+- Invoice creation with product lines
+- Status transitions (draft → sending → sent-to-client)
+- Total price calculation
+- Webhook delivery confirmation
+- Idempotency handling
+- Error handling
+- Edge cases (empty product lines, invalid operations)
+
+These tests use Laravel's built-in testing framework with PHPUnit, providing proper test isolation, database transactions, and integration with the application's service container.
