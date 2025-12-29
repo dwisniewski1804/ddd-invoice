@@ -13,4 +13,3 @@ Route::prefix('invoices')->group(function (): void {
     Route::get('/{id}', [InvoiceController::class, 'view'])->name('invoices.view');
     Route::post('/{id}/send', [InvoiceController::class, 'send'])->name('invoices.send');
 });
-

@@ -20,10 +20,10 @@ class DummyDriver implements DriverInterface
     ): bool {
         // Simulate successful delivery
         // In real implementation, this would call an external service
-        
+
         // After successful delivery, notify via NotificationService
         $this->notificationService->delivered($reference);
-        
+
         return true;
     }
 }

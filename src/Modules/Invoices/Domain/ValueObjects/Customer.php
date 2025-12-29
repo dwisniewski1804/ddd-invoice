@@ -6,7 +6,7 @@ namespace Modules\Invoices\Domain\ValueObjects;
 
 /**
  * Customer value object.
- * 
+ *
  * Represents customer information (name and email).
  */
 final class Customer
@@ -16,4 +16,3 @@ final class Customer
         public Email $email,
     ) {}
 }
-

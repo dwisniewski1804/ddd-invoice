@@ -13,7 +13,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 final class InvoiceProductLineModel extends Model
 {
     public $incrementing = false;
+
     protected $keyType = 'string';
+
     protected $table = 'invoice_product_lines';
 
     protected $fillable = [
@@ -36,4 +38,3 @@ final class InvoiceProductLineModel extends Model
         return $this->belongsTo(InvoiceModel::class, 'invoice_id');
     }
 }
-

@@ -10,7 +10,7 @@ use Modules\Invoices\Domain\Repositories\InvoiceRepository;
 
 /**
  * Handler: Create a new invoice in draft state.
- * 
+ *
  * This handler:
  * - Creates invoice in draft state
  * - Persists invoice via repository
@@ -34,4 +34,3 @@ final class CreateInvoiceHandler
         return $invoice;
     }
 }
-

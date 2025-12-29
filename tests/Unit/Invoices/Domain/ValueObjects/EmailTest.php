@@ -14,7 +14,7 @@ final class EmailTest extends TestCase
      * When: Email value object is created
      * Then: Email is created successfully with correct value
      */
-    public function testCreateValidEmail(): void
+    public function test_create_valid_email(): void
     {
         $email = new Email('john@example.com');
 
@@ -27,7 +27,7 @@ final class EmailTest extends TestCase
      * When: Email value object is created
      * Then: Email is created successfully
      */
-    public function testCreateValidEmailWithSubdomain(): void
+    public function test_create_valid_email_with_subdomain(): void
     {
         $email = new Email('user@mail.example.com');
 
@@ -39,7 +39,7 @@ final class EmailTest extends TestCase
      * When: Email value object is created
      * Then: Email is created successfully
      */
-    public function testCreateValidEmailWithPlusSign(): void
+    public function test_create_valid_email_with_plus_sign(): void
     {
         $email = new Email('user+tag@example.com');
 
@@ -51,7 +51,7 @@ final class EmailTest extends TestCase
      * When: Email value object is created
      * Then: Email is created successfully
      */
-    public function testCreateValidEmailWithNumbers(): void
+    public function test_create_valid_email_with_numbers(): void
     {
         $email = new Email('user123@example123.com');
 
@@ -63,7 +63,7 @@ final class EmailTest extends TestCase
      * When: Email value object is created
      * Then: InvalidArgumentException is thrown
      */
-    public function testCannotCreateEmailWithoutAtSign(): void
+    public function test_cannot_create_email_without_at_sign(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid email address: invalidemail.com');
@@ -76,7 +76,7 @@ final class EmailTest extends TestCase
      * When: Email value object is created
      * Then: InvalidArgumentException is thrown
      */
-    public function testCannotCreateEmailWithoutDomain(): void
+    public function test_cannot_create_email_without_domain(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid email address: user@');
@@ -89,7 +89,7 @@ final class EmailTest extends TestCase
      * When: Email value object is created
      * Then: InvalidArgumentException is thrown
      */
-    public function testCannotCreateEmailWithoutLocalPart(): void
+    public function test_cannot_create_email_without_local_part(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid email address: @example.com');
@@ -102,7 +102,7 @@ final class EmailTest extends TestCase
      * When: Email value object is created
      * Then: InvalidArgumentException is thrown
      */
-    public function testCannotCreateEmailWithSpaces(): void
+    public function test_cannot_create_email_with_spaces(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid email address: user name@example.com');
@@ -115,7 +115,7 @@ final class EmailTest extends TestCase
      * When: Email value object is created
      * Then: InvalidArgumentException is thrown
      */
-    public function testCannotCreateEmailWithInvalidFormat(): void
+    public function test_cannot_create_email_with_invalid_format(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid email address: notanemail');
@@ -128,7 +128,7 @@ final class EmailTest extends TestCase
      * When: __toString() is called or cast to string
      * Then: Returns the email value string
      */
-    public function testToStringReturnsEmailValue(): void
+    public function test_to_string_returns_email_value(): void
     {
         $email = new Email('test@example.com');
 
@@ -136,4 +136,3 @@ final class EmailTest extends TestCase
         $this->assertSame('test@example.com', (string) $email);
     }
 }
-

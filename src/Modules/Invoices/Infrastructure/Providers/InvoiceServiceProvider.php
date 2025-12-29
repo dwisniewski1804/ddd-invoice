@@ -14,7 +14,7 @@ use Modules\Notifications\Api\Events\ResourceDeliveredEvent;
 
 /**
  * Service provider for Invoice module.
- * 
+ *
  * Registers:
  * - Repository bindings
  * - Mapper bindings

@@ -9,7 +9,7 @@ use Ramsey\Uuid\UuidInterface;
 
 /**
  * Repository interface for invoice persistence.
- * 
+ *
  * This interface belongs to the domain layer and defines
  * the contract for persisting and retrieving invoices.
  */
@@ -24,4 +24,3 @@ interface InvoiceRepository
      */
     public function findAll(): array;
 }
-

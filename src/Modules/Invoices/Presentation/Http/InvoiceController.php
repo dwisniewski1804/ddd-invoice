@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * HTTP controller for invoice operations.
- * 
+ *
  * Thin controller that delegates to handlers.
  * Handles HTTP concerns (request/response transformation).
  */
@@ -101,12 +101,12 @@ final class InvoiceController
     public function send(string $id): JsonResponse
     {
         $invoiceId = Uuid::fromString($id);
-        
+
         try {
             $invoice = $this->sendHandler->handle(new SendInvoice(
                 invoiceId: $invoiceId,
             ));
-            
+
             return new JsonResponse(
                 data: InvoiceView::fromDomain($invoice)->toArray()
             );

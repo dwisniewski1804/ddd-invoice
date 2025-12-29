@@ -11,7 +11,7 @@ use Ramsey\Uuid\Uuid;
 
 final class InvoiceLineTest extends TestCase
 {
-    public function testCreateValidInvoiceLine(): void
+    public function test_create_valid_invoice_line(): void
     {
         $line = new InvoiceLine(
             id: Uuid::uuid4(),
@@ -26,7 +26,7 @@ final class InvoiceLineTest extends TestCase
         $this->assertSame(500, $line->calculateTotalPrice());
     }
 
-    public function testCannotCreateInvoiceLineWithZeroQuantity(): void
+    public function test_cannot_create_invoice_line_with_zero_quantity(): void
     {
         $this->expectException(InvalidInvoiceLines::class);
         $this->expectExceptionMessage('Invoice line quantity must be greater than zero');
@@ -39,7 +39,7 @@ final class InvoiceLineTest extends TestCase
         );
     }
 
-    public function testCannotCreateInvoiceLineWithNegativeQuantity(): void
+    public function test_cannot_create_invoice_line_with_negative_quantity(): void
     {
         $this->expectException(InvalidInvoiceLines::class);
         $this->expectExceptionMessage('Invoice line quantity must be greater than zero');
@@ -52,7 +52,7 @@ final class InvoiceLineTest extends TestCase
         );
     }
 
-    public function testCannotCreateInvoiceLineWithZeroUnitPrice(): void
+    public function test_cannot_create_invoice_line_with_zero_unit_price(): void
     {
         $this->expectException(InvalidInvoiceLines::class);
         $this->expectExceptionMessage('Invoice line unit price must be greater than zero');
@@ -65,7 +65,7 @@ final class InvoiceLineTest extends TestCase
         );
     }
 
-    public function testCannotCreateInvoiceLineWithNegativeUnitPrice(): void
+    public function test_cannot_create_invoice_line_with_negative_unit_price(): void
     {
         $this->expectException(InvalidInvoiceLines::class);
         $this->expectExceptionMessage('Invoice line unit price must be greater than zero');
@@ -78,7 +78,7 @@ final class InvoiceLineTest extends TestCase
         );
     }
 
-    public function testCalculateTotalPrice(): void
+    public function test_calculate_total_price(): void
     {
         $line = new InvoiceLine(
             id: Uuid::uuid4(),
@@ -90,4 +90,3 @@ final class InvoiceLineTest extends TestCase
         $this->assertSame(450, $line->calculateTotalPrice());
     }
 }
-

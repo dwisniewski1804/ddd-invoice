@@ -10,12 +10,12 @@ use Modules\Invoices\Domain\Repositories\InvoiceRepository;
 
 /**
  * Handler: Mark invoice as delivered.
- * 
+ *
  * This handler:
  * 1. Loads invoice from repository
  * 2. Transitions invoice from "sending" to "sent-to-client" (via domain logic)
  * 3. Persists the updated invoice
- * 
+ *
  * Idempotency: If invoice is not found or not in sending state,
  * the operation is silently ignored (protects against retries).
  */
@@ -39,6 +39,7 @@ final class MarkInvoiceDeliveredHandler
             // Business logic validation happens in the domain entity
             $invoice = $invoice->markAsSentToClient();
             $this->repository->save($invoice);
+
             return $invoice;
         } catch (\DomainException $e) {
             // Invoice not in sending state - idempotency: ignore
@@ -46,4 +47,3 @@ final class MarkInvoiceDeliveredHandler
         }
     }
 }
-

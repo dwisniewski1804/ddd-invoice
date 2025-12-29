@@ -29,4 +29,3 @@ final class InvalidInvoiceLines extends \DomainException
         );
     }
 }
-

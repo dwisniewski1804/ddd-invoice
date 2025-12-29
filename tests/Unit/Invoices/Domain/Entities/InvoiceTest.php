@@ -16,7 +16,7 @@ use Ramsey\Uuid\Uuid;
 
 final class InvoiceTest extends TestCase
 {
-    public function testCreateInvoiceInDraftState(): void
+    public function test_create_invoice_in_draft_state(): void
     {
         $invoice = Invoice::create(
             id: Uuid::uuid4(),
@@ -32,7 +32,7 @@ final class InvoiceTest extends TestCase
         $this->assertEmpty($invoice->lines);
     }
 
-    public function testCreateInvoiceWithLines(): void
+    public function test_create_invoice_with_lines(): void
     {
         $line = new InvoiceLine(
             id: Uuid::uuid4(),
@@ -54,7 +54,7 @@ final class InvoiceTest extends TestCase
         $this->assertSame(200, $invoice->calculateTotalPrice());
     }
 
-    public function testMarkAsSendingFromDraftState(): void
+    public function test_mark_as_sending_from_draft_state(): void
     {
         $line = new InvoiceLine(
             id: Uuid::uuid4(),
@@ -77,7 +77,7 @@ final class InvoiceTest extends TestCase
         $this->assertSame(StatusEnum::Sending, $updatedInvoice->status);
     }
 
-    public function testCannotMarkAsSendingFromNonDraftState(): void
+    public function test_cannot_mark_as_sending_from_non_draft_state(): void
     {
         $line = new InvoiceLine(
             id: Uuid::uuid4(),
@@ -101,7 +101,7 @@ final class InvoiceTest extends TestCase
         $invoice->markAsSending();
     }
 
-    public function testCannotMarkAsSendingWithoutValidLines(): void
+    public function test_cannot_mark_as_sending_without_valid_lines(): void
     {
         $invoice = Invoice::create(
             id: Uuid::uuid4(),
@@ -113,11 +113,11 @@ final class InvoiceTest extends TestCase
 
         $this->expectException(CannotSendInvoice::class);
         $this->expectExceptionMessage('Cannot send invoice. Invoice must have at least one line');
-        
+
         $invoice->markAsSending();
     }
 
-    public function testMarkAsSentToClientFromSendingState(): void
+    public function test_mark_as_sent_to_client_from_sending_state(): void
     {
         $line = new InvoiceLine(
             id: Uuid::uuid4(),
@@ -141,7 +141,7 @@ final class InvoiceTest extends TestCase
         $this->assertSame(StatusEnum::SentToClient, $invoice->status);
     }
 
-    public function testCannotMarkAsSentToClientFromNonSendingState(): void
+    public function test_cannot_mark_as_sent_to_client_from_non_sending_state(): void
     {
         $invoice = Invoice::create(
             id: Uuid::uuid4(),
@@ -153,11 +153,11 @@ final class InvoiceTest extends TestCase
 
         $this->expectException(CannotMarkAsDelivered::class);
         $this->expectExceptionMessage('Cannot mark invoice as sent-to-client');
-        
+
         $invoice->markAsSentToClient();
     }
 
-    public function testCalculateTotalPrice(): void
+    public function test_calculate_total_price(): void
     {
         $line1 = new InvoiceLine(
             id: Uuid::uuid4(),
@@ -185,7 +185,7 @@ final class InvoiceTest extends TestCase
         $this->assertSame(350, $invoice->calculateTotalPrice()); // (2 * 100) + (3 * 50) = 350
     }
 
-    public function testCalculateTotalPriceWithEmptyLines(): void
+    public function test_calculate_total_price_with_empty_lines(): void
     {
         $invoice = Invoice::create(
             id: Uuid::uuid4(),

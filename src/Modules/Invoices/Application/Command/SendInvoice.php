@@ -15,4 +15,3 @@ final class SendInvoice
         public UuidInterface $invoiceId,
     ) {}
 }
-

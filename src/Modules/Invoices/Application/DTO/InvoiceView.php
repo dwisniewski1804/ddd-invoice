@@ -8,13 +8,13 @@ use Modules\Invoices\Domain\Entities\Invoice;
 
 /**
  * DTO for invoice view representation.
- * 
+ *
  * Transforms domain entity to view format.
  */
 final class InvoiceView
 {
     /**
-     * @param array{id: string, name: string, quantity: int, unit_price: int, total_unit_price: int}[] $lines
+     * @param  array{id: string, name: string, quantity: int, unit_price: int, total_unit_price: int}[]  $lines
      */
     public function __construct(
         public string $invoice_id,
@@ -50,7 +50,7 @@ final class InvoiceView
 
     /**
      * Convert to array for JSON response.
-     * 
+     *
      * @return array{invoice_id: string, status: string, customer_name: string, customer_email: string, product_lines: array, total_price: int}
      */
     public function toArray(): array
@@ -65,4 +65,3 @@ final class InvoiceView
         ];
     }
 }
-

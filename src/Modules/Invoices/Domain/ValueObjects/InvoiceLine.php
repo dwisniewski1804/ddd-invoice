@@ -9,7 +9,7 @@ use Ramsey\Uuid\UuidInterface;
 
 /**
  * Invoice line value object.
- * 
+ *
  * Represents a single line item on an invoice with validation:
  * - Quantity must be positive (> 0)
  * - Unit price must be positive (> 0)
@@ -39,4 +39,3 @@ final class InvoiceLine
         return $this->quantity * $this->unitPrice;
     }
 }
-

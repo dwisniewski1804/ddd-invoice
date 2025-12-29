@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Unit\Invoices\Domain\Policy;
 
 use Modules\Invoices\Domain\Entities\Invoice;
-use Modules\Invoices\Domain\Enums\StatusEnum;
 use Modules\Invoices\Domain\Policy\CanSendInvoicePolicy;
 use Modules\Invoices\Domain\ValueObjects\Customer;
 use Modules\Invoices\Domain\ValueObjects\Email;
@@ -19,7 +18,7 @@ final class CanSendInvoicePolicyTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->policy = new CanSendInvoicePolicy();
+        $this->policy = new CanSendInvoicePolicy;
     }
 
     /**
@@ -27,7 +26,7 @@ final class CanSendInvoicePolicyTest extends TestCase
      * When: Policy checks if invoice can be sent
      * Then: Returns true
      */
-    public function testCanSendReturnsTrueForDraftInvoiceWithValidLines(): void
+    public function test_can_send_returns_true_for_draft_invoice_with_valid_lines(): void
     {
         $line = new InvoiceLine(
             id: Uuid::uuid4(),
@@ -53,7 +52,7 @@ final class CanSendInvoicePolicyTest extends TestCase
      * When: Policy checks if invoice can be sent
      * Then: Returns false
      */
-    public function testCanSendReturnsFalseForInvoiceNotInDraftState(): void
+    public function test_can_send_returns_false_for_invoice_not_in_draft_state(): void
     {
         $line = new InvoiceLine(
             id: Uuid::uuid4(),
@@ -82,7 +81,7 @@ final class CanSendInvoicePolicyTest extends TestCase
      * When: Policy checks if invoice can be sent
      * Then: Returns false
      */
-    public function testCanSendReturnsFalseForInvoiceWithoutLines(): void
+    public function test_can_send_returns_false_for_invoice_without_lines(): void
     {
         $invoice = Invoice::create(
             id: Uuid::uuid4(),
@@ -101,7 +100,7 @@ final class CanSendInvoicePolicyTest extends TestCase
      * When: Policy checks if invoice can be sent
      * Then: Returns true (InvoiceLine constructor ensures valid values)
      */
-    public function testCanSendValidatesEachLineHasPositiveQuantityAndUnitPrice(): void
+    public function test_can_send_validates_each_line_has_positive_quantity_and_unit_price(): void
     {
         // Since InvoiceLine constructor validates quantity > 0 and unitPrice > 0,
         // we can't create invalid lines. However, the policy still checks these
@@ -133,7 +132,7 @@ final class CanSendInvoicePolicyTest extends TestCase
      * When: Policy checks if invoice can be sent
      * Then: Returns true
      */
-    public function testCanSendReturnsTrueForInvoiceWithMultipleValidLines(): void
+    public function test_can_send_returns_true_for_invoice_with_multiple_valid_lines(): void
     {
         $line1 = new InvoiceLine(
             id: Uuid::uuid4(),
@@ -166,7 +165,7 @@ final class CanSendInvoicePolicyTest extends TestCase
      * When: Policy checks if invoice can be sent
      * Then: Returns false
      */
-    public function testCanSendReturnsFalseForInvoiceInSentToClientState(): void
+    public function test_can_send_returns_false_for_invoice_in_sent_to_client_state(): void
     {
         $line = new InvoiceLine(
             id: Uuid::uuid4(),
@@ -190,4 +189,3 @@ final class CanSendInvoicePolicyTest extends TestCase
         $this->assertFalse($this->policy->canSend($invoice));
     }
 }
-

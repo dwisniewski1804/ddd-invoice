@@ -12,14 +12,14 @@ use Modules\Notifications\Api\NotificationFacadeInterface;
 
 /**
  * Handler: Send invoice to customer.
- * 
+ *
  * This handler:
  * 1. Loads invoice from repository
  * 2. Validates invoice can be sent (via domain logic)
  * 3. Sends notification via NotificationFacade
  * 4. Updates invoice status to "sending"
  * 5. Persists the updated invoice
- * 
+ *
  * The actual delivery confirmation happens asynchronously via ResourceDeliveredEvent.
  */
 final class SendInvoiceHandler
@@ -44,7 +44,7 @@ final class SendInvoiceHandler
         $this->notificationFacade->notify(new NotifyData(
             resourceId: $invoice->id,
             toEmail: $invoice->customer->email->value,
-            subject: 'Invoice #' . $invoice->id->toString(),
+            subject: 'Invoice #'.$invoice->id->toString(),
             message: $this->buildInvoiceMessage($invoice),
         ));
 
@@ -61,15 +61,14 @@ final class SendInvoiceHandler
         $message .= "Invoice ID: {$invoice->id->toString()}\n";
         $message .= "Status: {$invoice->status->value}\n\n";
         $message .= "Product Lines:\n";
-        
+
         foreach ($invoice->lines as $line) {
             $lineTotal = $line->calculateTotalPrice();
             $message .= "- {$line->name}: {$line->quantity} × {$line->unitPrice} = {$lineTotal}\n";
         }
-        
+
         $message .= "\nTotal: {$invoice->calculateTotalPrice()}\n";
-        
+
         return $message;
     }
 }
-

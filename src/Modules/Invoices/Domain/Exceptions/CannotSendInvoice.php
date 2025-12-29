@@ -28,4 +28,3 @@ final class CannotSendInvoice extends \DomainException
         );
     }
 }
-

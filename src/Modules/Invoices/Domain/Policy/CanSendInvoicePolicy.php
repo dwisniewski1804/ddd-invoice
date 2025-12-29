@@ -9,10 +9,10 @@ use Modules\Invoices\Domain\Enums\StatusEnum;
 
 /**
  * Policy: Can this invoice be sent?
- * 
+ *
  * Encapsulates the business rule for determining if an invoice
  * can be sent. This policy improves readability and reusability.
- * 
+ *
  * Rules:
  * - Invoice must be in draft state
  * - Invoice must have at least one line
@@ -42,4 +42,3 @@ final class CanSendInvoicePolicy
         return true;
     }
 }
-

@@ -18,6 +18,7 @@ use Ramsey\Uuid\Uuid;
 final class CreateInvoiceHandlerTest extends TestCase
 {
     private InvoiceRepository $repository;
+
     private CreateInvoiceHandler $handler;
 
     protected function setUp(): void
@@ -31,7 +32,7 @@ final class CreateInvoiceHandlerTest extends TestCase
      * When: Handler processes the command
      * Then: Invoice is created in Draft status and saved via repository
      */
-    public function testCreateInvoiceWithoutLines(): void
+    public function test_create_invoice_without_lines(): void
     {
         $invoiceId = Uuid::uuid4();
         $customer = new Customer(
@@ -67,7 +68,7 @@ final class CreateInvoiceHandlerTest extends TestCase
      * When: Handler processes the command
      * Then: Invoice is created with all lines and total price is calculated correctly
      */
-    public function testCreateInvoiceWithLines(): void
+    public function test_create_invoice_with_lines(): void
     {
         $invoiceId = Uuid::uuid4();
         $customer = new Customer(
@@ -112,4 +113,3 @@ final class CreateInvoiceHandlerTest extends TestCase
         $this->assertSame(350, $invoice->calculateTotalPrice());
     }
 }
-

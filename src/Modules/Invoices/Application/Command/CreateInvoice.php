@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Modules\Invoices\Application\Command;
 
 use Modules\Invoices\Domain\ValueObjects\Customer;
-use Modules\Invoices\Domain\ValueObjects\Email;
 use Modules\Invoices\Domain\ValueObjects\InvoiceLine;
 use Ramsey\Uuid\UuidInterface;
 
@@ -15,7 +14,7 @@ use Ramsey\Uuid\UuidInterface;
 final class CreateInvoice
 {
     /**
-     * @param InvoiceLine[] $lines
+     * @param  InvoiceLine[]  $lines
      */
     public function __construct(
         public UuidInterface $invoiceId,
@@ -23,4 +22,3 @@ final class CreateInvoice
         public array $lines = [],
     ) {}
 }
-

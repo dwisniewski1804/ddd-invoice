@@ -21,7 +21,9 @@ use Ramsey\Uuid\Uuid;
 final class SendInvoiceHandlerTest extends TestCase
 {
     private InvoiceRepository $repository;
+
     private NotificationFacadeInterface $notificationFacade;
+
     private SendInvoiceHandler $handler;
 
     protected function setUp(): void
@@ -39,7 +41,7 @@ final class SendInvoiceHandlerTest extends TestCase
      * When: Handler sends the invoice
      * Then: Status changes to Sending, NotificationFacade is called, and invoice is saved
      */
-    public function testSendInvoiceSuccessfully(): void
+    public function test_send_invoice_successfully(): void
     {
         $invoiceId = Uuid::uuid4();
         $line = new InvoiceLine(
@@ -93,7 +95,7 @@ final class SendInvoiceHandlerTest extends TestCase
      * When: Handler tries to send the invoice
      * Then: RuntimeException is thrown with appropriate message
      */
-    public function testSendInvoiceThrowsExceptionWhenInvoiceNotFound(): void
+    public function test_send_invoice_throws_exception_when_invoice_not_found(): void
     {
         $invoiceId = Uuid::uuid4();
         $command = new SendInvoice(invoiceId: $invoiceId);
@@ -120,7 +122,7 @@ final class SendInvoiceHandlerTest extends TestCase
      * When: Handler tries to send the invoice
      * Then: CannotSendInvoice exception is thrown
      */
-    public function testSendInvoiceThrowsExceptionWhenInvoiceCannotBeSent(): void
+    public function test_send_invoice_throws_exception_when_invoice_cannot_be_sent(): void
     {
         $invoiceId = Uuid::uuid4();
         $invoice = Invoice::create(
@@ -155,7 +157,7 @@ final class SendInvoiceHandlerTest extends TestCase
      * When: Handler tries to send the invoice again
      * Then: CannotSendInvoice exception is thrown
      */
-    public function testSendInvoiceThrowsExceptionWhenInvoiceNotInDraftState(): void
+    public function test_send_invoice_throws_exception_when_invoice_not_in_draft_state(): void
     {
         $invoiceId = Uuid::uuid4();
         $line = new InvoiceLine(
@@ -195,4 +197,3 @@ final class SendInvoiceHandlerTest extends TestCase
         $this->handler->handle($command);
     }
 }
-

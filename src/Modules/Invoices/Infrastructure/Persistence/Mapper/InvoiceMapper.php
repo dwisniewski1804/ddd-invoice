@@ -15,11 +15,11 @@ use Ramsey\Uuid\Uuid;
 
 /**
  * Mapper between domain entities and Eloquent models.
- * 
+ *
  * This mapper handles the translation between:
  * - Domain (Invoice, InvoiceLine, Customer, Email)
  * - Persistence (InvoiceModel, InvoiceProductLineModel)
- * 
+ *
  * The repository is the only place that uses this mapper.
  */
 final class InvoiceMapper
@@ -52,7 +52,7 @@ final class InvoiceMapper
 
     /**
      * Convert domain entity to Eloquent model data.
-     * 
+     *
      * @return array{id: string, customer_name: string, customer_email: string, status: string}
      */
     public function toPersistence(Invoice $invoice): array
@@ -67,7 +67,7 @@ final class InvoiceMapper
 
     /**
      * Convert domain invoice line to persistence data.
-     * 
+     *
      * @return array{id: string, invoice_id: string, name: string, price: int, quantity: int}
      */
     public function lineToPersistence(InvoiceLine $line, string $invoiceId): array
@@ -81,4 +81,3 @@ final class InvoiceMapper
         ];
     }
 }
-

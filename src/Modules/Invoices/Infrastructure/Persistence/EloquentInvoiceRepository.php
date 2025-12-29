@@ -14,7 +14,7 @@ use Ramsey\Uuid\UuidInterface;
 
 /**
  * Eloquent implementation of InvoiceRepository.
- * 
+ *
  * This repository handles the persistence concerns, mapping between
  * domain entities and Eloquent models using the InvoiceMapper.
  */
@@ -63,4 +63,3 @@ final class EloquentInvoiceRepository implements InvoiceRepository
         return $models->map(fn (InvoiceModel $model) => $this->mapper->toDomain($model))->toArray();
     }
 }
-

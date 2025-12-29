@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * End-to-End test for the complete invoice lifecycle.
- * 
+ *
  * Tests the complete invoice workflow:
  * 1. Create invoice with product lines
  * 2. View invoice (verify draft status)
@@ -24,7 +24,7 @@ final class InvoiceLifecycleE2ETest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testCompleteInvoiceLifecycle(): void
+    public function test_complete_invoice_lifecycle(): void
     {
         // Step 1: Create Invoice
         $createResponse = $this->postJson('/api/invoices', [
@@ -123,7 +123,7 @@ final class InvoiceLifecycleE2ETest extends TestCase
             ->assertJsonStructure(['error']);
     }
 
-    public function testInvoiceCreationWithEmptyProductLines(): void
+    public function test_invoice_creation_with_empty_product_lines(): void
     {
         $createResponse = $this->postJson('/api/invoices', [
             'customer_name' => 'Jane Doe',
@@ -147,7 +147,7 @@ final class InvoiceLifecycleE2ETest extends TestCase
             ]);
     }
 
-    public function testCannotSendInvoiceWithoutProductLines(): void
+    public function test_cannot_send_invoice_without_product_lines(): void
     {
         $createResponse = $this->postJson('/api/invoices', [
             'customer_name' => 'Jane Doe',
@@ -163,7 +163,7 @@ final class InvoiceLifecycleE2ETest extends TestCase
             ->assertJsonStructure(['error']);
     }
 
-    public function testInvoiceNotFound(): void
+    public function test_invoice_not_found(): void
     {
         $nonExistentId = '00000000-0000-0000-0000-000000000000';
 
@@ -172,4 +172,3 @@ final class InvoiceLifecycleE2ETest extends TestCase
             ->assertJsonStructure(['error']);
     }
 }
-

@@ -18,6 +18,7 @@ use Ramsey\Uuid\Uuid;
 final class MarkInvoiceDeliveredHandlerTest extends TestCase
 {
     private InvoiceRepository $repository;
+
     private MarkInvoiceDeliveredHandler $handler;
 
     protected function setUp(): void
@@ -31,7 +32,7 @@ final class MarkInvoiceDeliveredHandlerTest extends TestCase
      * When: Handler marks invoice as delivered
      * Then: Status changes to SentToClient and invoice is saved
      */
-    public function testMarkInvoiceAsDeliveredSuccessfully(): void
+    public function test_mark_invoice_as_delivered_successfully(): void
     {
         $invoiceId = Uuid::uuid4();
         $line = new InvoiceLine(
@@ -78,7 +79,7 @@ final class MarkInvoiceDeliveredHandlerTest extends TestCase
      * When: Handler tries to mark invoice as delivered
      * Then: Returns null (idempotency - silent ignore for non-existent invoice)
      */
-    public function testMarkInvoiceAsDeliveredReturnsNullWhenInvoiceNotFound(): void
+    public function test_mark_invoice_as_delivered_returns_null_when_invoice_not_found(): void
     {
         $invoiceId = Uuid::uuid4();
         $command = new MarkInvoiceDelivered(invoiceId: $invoiceId);
@@ -101,7 +102,7 @@ final class MarkInvoiceDeliveredHandlerTest extends TestCase
      * When: Handler tries to mark invoice as delivered
      * Then: Returns null (idempotency - silent ignore for wrong status)
      */
-    public function testMarkInvoiceAsDeliveredReturnsNullWhenInvoiceNotInSendingState(): void
+    public function test_mark_invoice_as_delivered_returns_null_when_invoice_not_in_sending_state(): void
     {
         $invoiceId = Uuid::uuid4();
         $line = new InvoiceLine(
@@ -143,7 +144,7 @@ final class MarkInvoiceDeliveredHandlerTest extends TestCase
      * When: Handler tries to mark invoice as delivered again
      * Then: Returns null (idempotency - protection against duplicate deliveries)
      */
-    public function testMarkInvoiceAsDeliveredReturnsNullWhenInvoiceAlreadyDelivered(): void
+    public function test_mark_invoice_as_delivered_returns_null_when_invoice_already_delivered(): void
     {
         $invoiceId = Uuid::uuid4();
         $line = new InvoiceLine(
@@ -183,4 +184,3 @@ final class MarkInvoiceDeliveredHandlerTest extends TestCase
         $this->assertNull($result);
     }
 }
-

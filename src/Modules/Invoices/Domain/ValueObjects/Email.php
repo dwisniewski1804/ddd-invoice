@@ -6,7 +6,7 @@ namespace Modules\Invoices\Domain\ValueObjects;
 
 /**
  * Email value object.
- * 
+ *
  * Encapsulates email validation and ensures type safety.
  */
 final class Email
@@ -14,7 +14,7 @@ final class Email
     public function __construct(
         public string $value,
     ) {
-        if (!filter_var($this->value, FILTER_VALIDATE_EMAIL)) {
+        if (! filter_var($this->value, FILTER_VALIDATE_EMAIL)) {
             throw new \InvalidArgumentException("Invalid email address: {$this->value}");
         }
     }
@@ -24,4 +24,3 @@ final class Email
         return $this->value;
     }
 }
-

@@ -14,7 +14,7 @@ use Ramsey\Uuid\UuidInterface;
 
 /**
  * Invoice aggregate root.
- * 
+ *
  * Encapsulates business rules around invoice lifecycle:
  * - Invoices are created in draft state
  * - Can only be sent from draft state
@@ -24,7 +24,7 @@ use Ramsey\Uuid\UuidInterface;
 final class Invoice
 {
     /**
-     * @param InvoiceLine[] $lines
+     * @param  InvoiceLine[]  $lines
      */
     public function __construct(
         public UuidInterface $id,
@@ -35,8 +35,8 @@ final class Invoice
 
     /**
      * Create a new invoice in draft state.
-     * 
-     * @param InvoiceLine[] $lines
+     *
+     * @param  InvoiceLine[]  $lines
      */
     public static function create(
         UuidInterface $id,
@@ -53,19 +53,19 @@ final class Invoice
 
     /**
      * Mark invoice as sending.
-     * 
+     *
      * Business rule: Invoice can only be sent if it's in draft state
      * and has valid product lines (quantity and price > 0).
-     * 
+     *
      * Uses CanSendInvoicePolicy to check if invoice can be sent.
-     * 
+     *
      * @throws CannotSendInvoice
      */
     public function markAsSending(): self
     {
-        $policy = new CanSendInvoicePolicy();
-        
-        if (!$policy->canSend($this)) {
+        $policy = new CanSendInvoicePolicy;
+
+        if (! $policy->canSend($this)) {
             if ($this->status !== StatusEnum::Draft) {
                 throw CannotSendInvoice::fromState($this->status);
             }
@@ -82,10 +82,10 @@ final class Invoice
 
     /**
      * Mark invoice as sent to client.
-     * 
+     *
      * Business rule: Invoice can only transition to sent-to-client from sending state.
      * This is typically triggered by the ResourceDeliveredEvent.
-     * 
+     *
      * @throws CannotMarkAsDelivered
      */
     public function markAsSentToClient(): self
@@ -111,6 +111,7 @@ final class Invoice
         foreach ($this->lines as $line) {
             $total += $line->calculateTotalPrice();
         }
+
         return $total;
     }
 }

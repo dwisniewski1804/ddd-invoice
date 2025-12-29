@@ -21,4 +21,3 @@ final class CannotMarkAsDelivered extends \DomainException
         );
     }
 }
-
